@@ -1,0 +1,23 @@
+.footer {
+    background-color: #1F2937;
+    padding:  2rem 6rem;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    text-align: start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.top i{
+    color: #fff;
+    font-size: 2rem;
+    margin-left: 1rem;
+}
+
+.top i:hover{
+    color: aqua;
+    transition: 0.2s;
+}
