@@ -85,7 +85,7 @@ const VolunteerSignUp = () => {
 
       const { user } = userCredential;
       const userData = {
-        uid: user.uid,
+        id: user.uid,
         email: formData.email,
         name: formData.name,
         username: formData.username,
