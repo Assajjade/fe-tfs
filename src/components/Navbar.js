@@ -107,7 +107,7 @@ const Navbar = () => {
         {/* Conditionally render the button based on user's role */}
         {data && data.role !== "User" && data.role !== null && (
           <li >
-          <Link to={"http://organizer.localhost:3000"} className="nav-links flex gap-2">
+          <Link to={"http://localhost:3000/organizer"} className="nav-links flex gap-2">
             {/* <i className={item.icon} aria-hidden="true"></i> */}
             <FaUserCog className="nav-icon" /> Organizer
           </Link>
