@@ -24,8 +24,8 @@ function ListBlog({ posts }) {
           <div className="flex items-center mt-5">
             <img src={account} className="rounded-full w-[35px]" />
             <div className="ml-2 flex justify-start flex-col">
-              <div className="font-bold flex text-[12px]">{item.author}</div>
-              <div className="text-gray-500 text-[10px]">{item.created_at}</div>
+              <div className="font-bold flex text-[12px]">{item.author.name}</div>
+              <div className="text-gray-500 text-[10px]">{new Date(item.created_at).toLocaleString()}</div>
             </div>
           </div>
         </div>

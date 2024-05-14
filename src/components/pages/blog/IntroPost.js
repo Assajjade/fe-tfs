@@ -48,8 +48,8 @@ function IntroPost({ post }) {
           <div id="hallo" className="flex items-center mt-5 px-3">
             <img src={account} className="rounded-full w-[50px]" alt="Account" />
             <div className="ml-2 flex justify-start flex-col">
-              <div className="font-bold flex">{post.author}</div>
-              <div className="text-gray-600">{post.created_at}</div>
+              <div className="font-bold flex">{post.author.name}</div>
+              <div className="text-gray-600">{new Date(post.created_at).toLocaleString()}</div>
             </div>
           </div>
         </div>
