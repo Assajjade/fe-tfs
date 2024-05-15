@@ -5,7 +5,7 @@ import logo from "../image/Logo.png";
 import "../css/NavbarStyles.css"; // Assuming you still need this for other styles
 import { useAuth } from "../context/authContext";
 import AxiosInstance from "./Axios";
-import { FaUserCog } from 'react-icons/fa'; 
+import { FaUserCog } from "react-icons/fa";
 
 const Navbar = () => {
   const location = useLocation();
@@ -13,59 +13,44 @@ const Navbar = () => {
   const { currentUser } = useAuth();
   const [data, setData] = useState();
 
-  // console.log(currentUser);
-  // Check the language from the current URL
   const checkLanguage = () => {
     return location.pathname.endsWith("en") ? "en" : "id";
   };
 
   const fetchData = async () => {
-    // console.error('Error fetching user data:', currentUser);
     try {
       let responseData = null;
       if (currentUser?.uid) {
-        const response = await AxiosInstance.get(`user/detail/${currentUser.uid}`);
+        const response = await AxiosInstance.get(
+          `user/detail/${currentUser.uid}`
+        );
         responseData = response.data;
       }
-      console.log(responseData)
       setData(responseData);
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      console.error("Error fetching user data:", error);
     }
-  };  
+  };
 
   useEffect(() => {
-    fetchData()
-}, [currentUser?.uid]);
+    fetchData();
+  }, [currentUser?.uid]);
 
-  const [language, setLanguage] = useState(checkLanguage()); // Default language is determined from the URL
+  const [language, setLanguage] = useState(checkLanguage());
 
   const toggleLanguage = () => {
-    // Toggle the language between "en" and "id"
     const newLanguage = language === "en" ? "id" : "en";
-    // Update the language state
     setLanguage(newLanguage);
-    // Construct the new URL with the updated language
     const newPath = location.pathname.replace(language, newLanguage);
-    // Navigate to the new URL
     navigate(newPath);
 
     setTimeout(() => {
       window.location.reload();
-    }, 100); // Delay of 1000 milliseconds (1 second)
+    }, 100);
   };
 
-  // const handleLogout = async () => {
-  //   try {
-  //     await logout();  // Assuming logout is an async function from your auth context
-  //     navigate('/login');  // Redirect to login page after logout
-  //   } catch (error) {
-  //     console.error('Failed to log out', error);
-  //   }
-  // };
-  
   return (
-    <nav className="NavbarItems">
+    <nav className="NavbarItems flex items-center justify-between w-full py-2 bg-white shadow">
       <div className="flex items-center space-x-2">
         <h1 className="navbar-logo">
           <img
@@ -75,44 +60,45 @@ const Navbar = () => {
           />
         </h1>
       </div>
-      <ul className="nav-menu">
-        {(location.pathname.includes("/volunteer") || location.pathname.includes("/blog")) && (
-          <div className="switch">
-            <input
-              id="language-toggle"
-              className="check-toggle check-toggle-round-flat"
-              type="checkbox"
-              checked={language === "en"}
-              onChange={toggleLanguage}
-            />
-            <label htmlFor="language-toggle"></label>
-            <span className="on">ID</span>
-            <span className="off">EN</span>
-          </div>
-        )}
+      <div className="switch flex items-center space-x-2">
+          <input
+            id="language-toggle"
+            className="check-toggle check-toggle-round-flat"
+            type="checkbox"
+            checked={language === "en"}
+            onChange={toggleLanguage}
+          />
+          <label htmlFor="language-toggle"></label>
+          <span className="on">ID</span>
+          <span className="off">EN</span>
+        </div>
+      <ul className="nav-menu flex items-center space-x-4">
+        
+
+         <li className="flex items-center">
+          <Link
+            to="http://thefloatingschool.vercel.app/organizer"
+            className="nav-links flex items-center space-x-2"
+          >
+            <FaUserCog className="nav-icon" /> Organizer
+          </Link>
+        </li>
         {MenuItems.map((item, index) => {
           const modifiedUrl =
-            (item.url === "/volunteer" || item.url === "/blog")
+            item.url === "/volunteer" || item.url === "/blog"
               ? `${item.url}/${language}`
               : item.url;
           return (
-            <li key={index}>
-              <Link to={modifiedUrl} className="nav-links">
+            <li key={index} className="flex items-center">
+              <Link to={modifiedUrl} className="nav-links flex items-center">
                 <i className={item.icon} aria-hidden="true"></i>
                 {item.title}
               </Link>
             </li>
           );
         })}
-        {/* Conditionally render the button based on user's role */}
-        {data && data.role !== "User" && data.role !== null && (
-          <li >
-          <Link to={"http://localhost:3000/organizer"} className="nav-links flex gap-2">
-            {/* <i className={item.icon} aria-hidden="true"></i> */}
-            <FaUserCog className="nav-icon" /> Organizer
-          </Link>
-        </li>
-        )}
+
+       
       </ul>
     </nav>
   );
