@@ -12,6 +12,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
   const [data, setData] = useState();
+  console.log(currentUser)
 
   const checkLanguage = () => {
     return location.pathname.endsWith("en") ? "en" : "id";
@@ -27,6 +28,7 @@ const Navbar = () => {
         responseData = response.data;
       }
       setData(responseData);
+      // console.log(data)
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -35,6 +37,8 @@ const Navbar = () => {
   useEffect(() => {
     fetchData();
   }, [currentUser?.uid]);
+
+  // console.log(data)
 
   const [language, setLanguage] = useState(checkLanguage());
 
@@ -73,16 +77,16 @@ const Navbar = () => {
           <span className="off">EN</span>
         </div>
       <ul className="nav-menu flex items-center space-x-4">
-        
-
+      {data && data.role !== "User" && data.role !== null && (
          <li className="flex items-center">
           <Link
-            to="http://thefloatingschool.vercel.app/organizer"
+            to={`/organizer?uid=${currentUser.uid}`}
             className="nav-links flex items-center space-x-2"
           >
             <FaUserCog className="nav-icon" /> Organizer
           </Link>
         </li>
+      )}
         {MenuItems.map((item, index) => {
           const modifiedUrl =
             item.url === "/volunteer" || item.url === "/blog"

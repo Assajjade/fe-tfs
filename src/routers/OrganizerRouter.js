@@ -62,79 +62,83 @@ const OrganizerRouter = () => {
   return (
     <div>
       {/* Conditionally render SidebarIO based on user's role */}
-      {data && data.role && data.role.includes("IO") && (
+      {/* {data && data.role && data.role.includes("IO") && ( */}
         <SidebarIO
           drawerWidth={220}
           content={
-            <Routes baseName="/organizer">
-              <Route path="/organizer/admin" element={<Admin />} />
+            <Routes>
+              <Route path="/admin" element={<Admin />} />
               <Route
-                path="/organizer/admin/island-organizer"
+                path="/admin/island-organizer"
                 element={<IslandOrganizer />}
               />
-              <Route path="/organizer/admin/content-writer" element={<ContentWriter />} />
+              <Route path="/admin/content-writer" element={<ContentWriter />} />
               <Route path="/admin/comment-report" element={<CommentReport />} />
               <Route
-                path="/organizer/admin/island-organizer/signup"
+                path="/admin/island-organizer/signup"
                 element={<IOSignUp />}
               />
-              <Route path="/organizer/fund" element={<FundingLandingPage />} />
-              <Route path="/organizer/highlighted" element={<HighlightedFunding />} />
-              <Route path="/organizer/crowdfunding" element={<CrowdFundingAdmin />} />
-              <Route path="/organizer/admin/dashboard" element={<AdminDashboard />} />
               <Route
-                path="/organizer/cw/dashboard"
+              path="/admin/content-writer/signup"
+              element={<CWSignUp />}
+            />
+              <Route path="/fund" element={<FundingLandingPage />} />
+              <Route path="/highlighted" element={<HighlightedFunding />} />
+              <Route path="/crowdfunding" element={<CrowdFundingAdmin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route
+                path="/cw/dashboard"
                 element={<ContentWriterDashboard />}
               />
-              <Route path="/organizer/about-us" element={<AboutUsAdmin />} />
-              <Route path="/organizer/homepage/manage" element={<ManageHomepage />} />
+              <Route path="/about-us" element={<AboutUsAdmin />} />
+              <Route path="/homepage/manage" element={<ManageHomepage />} />
               <Route
-                path="/organizer/cw/dashboard"
+                path="/cw/dashboard"
                 element={<ContentWriterDashboard />}
               />
-              <Route path="/organizer/blogs" element={<BlogList />} />
-              <Route path="/organizer/blog/:blog_id" element={<BlogDetail />} />
-              <Route path="/organizer/blog/update/:blog_id" element={<BlogEdit />} />
-              <Route path="/organizer/blog/create" element={<BlogCreate />} />
-              <Route path="/organizer/organizer" element={<OrganizerHome />} />
-              <Route path="/organizer/trips" element={<Trips />} />
-              <Route path="/organizer/trips/create" element={<CreateTrips />} />
-              <Route path="/organizer/edit/:id" element={<EditTrips />} />
-              <Route path="/organizer/detail/:id" element={<DetailTrips />} />
+              <Route path="/blogs" element={<BlogList />} />
+              <Route path="/blog/:blog_id" element={<BlogDetail />} />
+              <Route path="/blog/update/:blog_id" element={<BlogEdit />} />
+              <Route path="/blog/create" element={<BlogCreate />} />
+              <Route path="/organizer" element={<OrganizerHome />} />
+              <Route path="/trips" element={<Trips />} />
+              <Route path="/trips/create" element={<CreateTrips />} />
+              <Route path="/edit/:id" element={<EditTrips />} />
+              <Route path="/detail/:id" element={<DetailTrips />} />
               <Route
-                path="/organizer/trips/:id/participants"
+                path="/trips/:id/participants"
                 element={<ShowParticipants />}
               />
               <Route
-                path="/organizer/trips/:id/add-questions/"
+                path="/trips/:id/add-questions/"
                 element={<CreateQuestions />}
               />
               <Route
-                path="/organizer/trips/:tripId/participants/:userId"
+                path="/trips/:tripId/participants/:userId"
                 element={<DetailParticipants />}
               />
               <Route
-                path="/organizer/trips/:tripId/participants/:userId/edit"
+                path="/trips/:tripId/participants/:userId/edit"
                 element={<EditApplicationStatus />}
               />
             </Routes>
           }
         />
-      )}
+      {/* )} */}
 
       {data && data.role && data.role.includes("CW") && (
         <SidebarCW
           drawerWidth={260}
           content={
-            <Routes baseName="/organizer">
+            <Routes>
               <Route
-                path="/organizer/cw/dashboard"
+                path="/cw/dashboard"
                 element={<ContentWriterDashboard />}
               />
-              <Route path="/organizer/blogs" element={<BlogList />} />
-              <Route path="/organizer/blog/:blog_id" element={<BlogDetail />} />
-              <Route path="/organizer/blog/update/:blog_id" element={<BlogEdit />} />
-              <Route path="/organizer/blog/create" element={<BlogCreate />} />
+              <Route path="/blogs" element={<BlogList />} />
+              <Route path="/blog/:blog_id" element={<BlogDetail />} />
+              <Route path="/blog/update/:blog_id" element={<BlogEdit />} />
+              <Route path="/blog/create" element={<BlogCreate />} />
             </Routes>
           }
         />
@@ -146,13 +150,13 @@ const OrganizerRouter = () => {
           content={
             <Routes>
               <Route
-                path="/organizer/cw/dashboard"
+                path="/cw/dashboard"
                 element={<ContentWriterDashboard />}
               />
-              <Route path="/organizer/blogs" element={<BlogList />} />
-              <Route path="/organizer/blog/:blog_id" element={<BlogDetail />} />
-              <Route path="/organizer/blog/update/:blog_id" element={<BlogEdit />} />
-              <Route path="/organizer/blog/create" element={<BlogCreate />} />
+              <Route path="/blogs" element={<BlogList />} />
+              <Route path="/blog/:blog_id" element={<BlogDetail />} />
+              <Route path="/blog/update/:blog_id" element={<BlogEdit />} />
+              <Route path="/blog/create" element={<BlogCreate />} />
             </Routes>
           }
         />

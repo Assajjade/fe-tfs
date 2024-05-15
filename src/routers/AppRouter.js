@@ -28,7 +28,6 @@ import ViewHistory from "../components/ViewHistory";
 import AboutUsPage from "../components/AboutUsPage";
 import FormQuestions from "../components/FormQuestion";
 const AppRouter = () => {
-  console.log("halo")
   return (
     <div>
       <Routes>

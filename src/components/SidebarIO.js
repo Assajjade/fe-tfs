@@ -54,8 +54,8 @@ export default function SidebarIO(props) {
           <ListItem disablePadding>
             <ListItemButton
               component={Link}
-              to="/organizer/trips"
-              selected={"/organizer/trips" === path}
+              to="/trips"
+              selected={"/trips" === path}
               sx={{ borderRadius: '10px', padding: '18px' }} // Add styling here
             >
               <ListItemIcon>
@@ -67,8 +67,8 @@ export default function SidebarIO(props) {
           <ListItem disablePadding>
             <ListItemButton
               component={Link}
-              to="/organizer/trips/create"
-              selected={"/organizer/trips/create" === path}
+              to="/trips/create"
+              selected={"/trips/create" === path}
               sx={{ borderRadius: '10px', padding: '18px' }} // Add styling here
             >
               <ListItemIcon>

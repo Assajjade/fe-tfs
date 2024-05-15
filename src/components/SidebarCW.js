@@ -40,7 +40,7 @@ export default function SidebarCW(props) {
           <ListItem disablePadding>
             <ListItemButton
               component={Link}
-              to="/organizer/cw/dashboard"
+              to="/cw/dashboard"
               selected={"/" === path}
               sx={{ borderRadius: '10px', padding: '18px' }} 
             >
@@ -54,7 +54,7 @@ export default function SidebarCW(props) {
           <ListItem disablePadding>
             <ListItemButton
               component={Link}
-              to="/organizer/blogs"
+              to="/blogs"
               selected={"/blogs" === path}
               sx={{ borderRadius: '10px', padding: '18px' }} // Add styling here
             >
@@ -67,7 +67,7 @@ export default function SidebarCW(props) {
           <ListItem disablePadding>
             <ListItemButton
               component={Link}
-              to="/organizer/blog/create"
+              to="/blog/create"
               selected={"/blog/create" === path}
               sx={{ borderRadius: '10px', padding: '18px' }} 
             >

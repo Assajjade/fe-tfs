@@ -1,0 +1,225 @@
+.button {
+    background-color: #1F2937; /* Dark background color */
+    color: white; /* White text */
+    padding: 0.75rem 1.5rem; /* Padding for the button */
+    border-radius: 0.5rem; /* More rounded corners for a cartoonish look */
+    border: 3px solid #111827; /* Darker border for a cartoonish outline */
+    box-shadow: 0 4px #111827; /* Shadow to create a lifted look */
+    transition: all 0.2s ease-in-out; /* Smooth transition for hover and active states */
+    font-weight: 600; /* Bold text */
+    text-transform: uppercase; /* Uppercase text */
+    cursor: pointer; /* Pointer cursor */
+    display: inline-block; /* Inline-block display */
+    text-align: center; /* Center text alignment */
+}
+
+.button:hover {
+    background-color: #374151; /* Slightly darker background on hover */
+}
+
+.button:active {
+    background-color: #4B5563; /* Darker background on press */
+    box-shadow: 0 2px #111827; /* Reduced shadow on press */
+    transform: scale(0.95); /* Slightly scale down to simulate compression */
+}
+
+.warningButton {
+    background-color: #ff3a33; /* Warning background color */
+    color: white; /* White text */
+    padding: 0.5rem 1.5rem;
+    margin-block: 1rem;
+    border-radius: 0.5rem; /* More rounded corners for a cartoonish look */
+    border: 3px solid #d8252e; /* Darker border for a cartoonish outline */
+    box-shadow: 0 4px #d8252e; /* Shadow to create a lifted look */
+    transition: all 0.2s ease-in-out; /* Smooth transition for hover and active states */
+    font-weight: 600; /* Bold text */
+    text-transform: uppercase; /* Uppercase text */
+    cursor: pointer; /* Pointer cursor */
+    display: inline-block; /* Inline-block display */
+    text-align: center; /* Center text alignment */
+    width: auto;
+}
+
+.warningButton:hover {
+    background-color: #d8252e; /* Darker background on hover */
+}
+
+.warningButton:active {
+    background-color: #b71c1c; /* Darker background on press */
+    box-shadow: 0 2px #8e1619; /* Reduced shadow on press */
+    transform: scale(0.95); /* Slightly scale down to simulate compression */
+}
+
+.volunteer-detail-page {
+    background: url('../image/bg-sea2.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.volunteer-detail-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.detail-action .detail-button {
+    border: 2px solid #41839d;
+    color: #41839d;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.detail-action .detail-button:hover {
+    background-color: #41839d;
+    color: #fff;
+}
+
+.trip-island-name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.detail {
+    margin-bottom: 15px;
+}
+
+.detail .detail-params {
+    font-weight: bold;
+    font-size: 1.125rem;
+}
+
+.detail .detail-value {
+    font-size: 1rem;
+    color: #555;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-action .detail-button {
+    background-color: #41839d;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.card-action .detail-button:hover {
+    background-color: #316e8c;
+    color: #fff;
+}
+
+/* styles.css */
+
+/* General container styles */
+.volunteer-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+}
+
+.trip-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+@media (min-width: 768px) {
+    .trip-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .trip-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1280px) {
+    .trip-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Card styles */
+.card {
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #e4e4e4;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s;
+}
+
+.card:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card-image img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 20px;
+    padding-top: 10px;
+}
+
+.card-title {
+    color: #7eb3bd;
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-caption {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.card-action .detail-button {
+    background-color: #41839d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.card-action .detail-button:hover {
+    background-color: #316e8c;
+}
+
+.volunteer-page h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
