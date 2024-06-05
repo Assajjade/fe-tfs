@@ -21,7 +21,7 @@ const ContentDetail = () => {
 
 
     const GetData = () => {
-        AxiosInstance.get(`blog/${id}/stats/`).then((res) => {
+        AxiosInstance.get(`analytics-api/content/${id}/`).then((res) => {
             setResult(res.data);
             const defaultValues = setDefaultValues(res.data);
             setLoading(false);

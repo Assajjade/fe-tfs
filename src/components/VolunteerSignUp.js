@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from '../firebase/firebaseConfig'; // Adjust this import path to where your Firebase config and initialization are
 import AxiosInstance from "./Axios";
 import backgroundImage from "../image/Login.png";
@@ -85,7 +85,7 @@ const VolunteerSignUp = () => {
 
       const { user } = userCredential;
       const userData = {
-        id: user.uid,
+        uid: user.uid,
         email: formData.email,
         name: formData.name,
         username: formData.username,
@@ -107,8 +107,39 @@ const VolunteerSignUp = () => {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    setIsSubmitting(true);
+    const provider = new GoogleAuthProvider();
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const { user } = result;
+
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+        name: user.displayName,
+        username: user.email.split('@')[0],
+        phone_numbers: '',
+        nationality: '',
+        domicile: '',
+        role: "User",
+        verified: user.emailVerified
+      };
+
+      await AxiosInstance.post('/signup/', userData);
+      toast.success("Successfully signed in with Google!");
+      navigate('/dashboard'); // or any route you want to redirect to
+    } catch (error) {
+      console.error('Google Sign-In error:', error);
+      toast.error(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center bg-cover bg-center h-screen" style={{ backgroundImage: `url(${backgroundImage})` }}>
+<div className="flex flex-col items-center justify-center bg-cover bg-center h-screen" style={{ backgroundImage: `url(${backgroundImage})` }}>
         <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
         <div className="bg-white w-full max-w-lg p-8 space-y-5 shadow-xl border rounded-xl">
             <h3 className="text-gray-800 text-2xl font-semibold text-center">Sign Up</h3>
@@ -128,6 +159,9 @@ const VolunteerSignUp = () => {
             <p className="text-sm text-center">
                 Already have an account? <button onClick={() => navigate('/signin')} className="text-blue-700 hover:underline">Login Here</button>
             </p>
+            <button onClick={handleGoogleSignIn} disabled={isSubmitting} className={`mt-4 w-full text-white font-medium py-2 rounded-lg transition-colors ${isSubmitting ? 'bg-gray-400' : 'bg-red-500 hover:bg-red-600'}`}>
+                {isSubmitting ? 'Signing In with Google...' : 'Sign In with Google'}
+            </button>
         </div>
     </div>
 );
@@ -142,6 +176,5 @@ const InputField = ({ label, type = 'text', name, value, handleChange, error }) 
     {error && <span className="text-red-500 text-sm">{error}</span>}
 </div>
 );
-
 
 export default VolunteerSignUp;

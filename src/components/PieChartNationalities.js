@@ -27,8 +27,8 @@ const PieChartNationalities = () => {
       labels: data.map(item => item.user__nationality),
       colors: ["#4793AF", "#FFC470", "#DD5746"], // Add more colors if needed
       chart: {
-        height: 420,
-        width: "100%",
+        height: 220,
+        width: "80%",
         type: "pie",
       },
       stroke: {

@@ -5,7 +5,7 @@ import HighlightedFunding from './HighlightedFunding';
 
 const CrowdFundingAdmin = () => {
     return (
-        <div>
+        <div style={{justifyContent: 'right' }}>
             <section>
                 <FundingLandingPage />
             </section>

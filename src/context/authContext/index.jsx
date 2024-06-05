@@ -2,6 +2,9 @@ import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../../firebase/firebaseConfig";
 // import { GoogleAuthProvider } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('Your Google Analytics ID');
 
 const AuthContext = React.createContext();
 

@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import AxiosInstance from './Axios';
 import ApexCharts from 'apexcharts';
 import PieChartNationalities from './PieChartNationalities'; // Import the PieChartNationalities component
+import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const OrganizerHome = ({pageViews}) => {
   const [tripCounts, setTripCounts] = useState({ entire: 0 });
@@ -188,8 +190,19 @@ const OrganizerHome = ({pageViews}) => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Card style={{ backgroundColor: '#f5f5f5', width: '700px', height: '250px', marginRight: '20px' }}>
+      <div className="flex" style={{ marginBottom: '20px' }}>
+            <Button component={Link} to="/admin/dashboard" variant="contained" color="primary" style={{ marginRight: '10px' }}>
+                All
+            </Button>
+            <Button component={Link} to="/io/dashboard" variant="contained" color="primary" style={{ marginRight: '10px' }}>
+                Trip
+            </Button>
+            <Button component={Link} to="/cw/dashboard" variant="contained" color="primary" style={{ marginRight: '10px' }}>
+                Blog
+            </Button>
+        </div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <Card style={{ backgroundColor: '#f5f5f5', width: '500px', height: '200px', marginRight: '20px' }}>
           <CardContent>
             <Typography variant="h5" component="div" sx={{ fontFamily: 'Nunito, sans-serif', color: '#333', paddingBottom: '10px' }}>
               Status User
@@ -199,10 +212,10 @@ const OrganizerHome = ({pageViews}) => {
               {Object.entries(applicationStatus).map(([status, count]) => (
                 <Card key={status} style={{ backgroundColor: 'white', width: '45%', padding: '5px', margin: '0 5px' }}>
                   <CardContent>
-                    <Typography variant="h4" component="div" sx={{ fontFamily: 'Nunito, sans-serif' }}>
+                    <Typography variant="h6" component="div" sx={{ fontFamily: 'Nunito, sans-serif' }}>
                       {count}
                     </Typography>
-                    <Typography variant="h5" component="div" sx={{ fontFamily: 'Nunito, sans-serif' }}>
+                    <Typography variant="h7" component="div" sx={{ fontFamily: 'Nunito, sans-serif' }}>
                       {status}
                     </Typography>
                   </CardContent>
@@ -211,7 +224,7 @@ const OrganizerHome = ({pageViews}) => {
             </div>
           </CardContent>
         </Card>
-        <Card style={{ backgroundColor: '#f5f5f5', width: '500px', height: '250px', marginRight: '20px' }}>
+        <Card style={{ backgroundColor: '#f5f5f5', width: '500px', height: '200px', marginRight: '20px' }}>
           <CardContent>
             <Typography variant="h5" component="div" sx={{ fontFamily: 'Nunito, sans-serif', color: '#333', paddingBottom: '10px' }}>
               Statistics
@@ -219,10 +232,10 @@ const OrganizerHome = ({pageViews}) => {
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <Card style={{ backgroundColor: 'white', width: '45%', padding: '15px' }}>
                 <CardContent>
-                  <Typography variant="h4" component="div" sx={{ fontFamily: 'Nunito, sans-serif' }}>
+                  <Typography variant="h6" component="div" sx={{ fontFamily: 'Nunito, sans-serif' }}>
                   {tripCounts.entire}
                   </Typography>
-                  <Typography variant="h5" component="div" sx={{ fontFamily: 'Nunito, sans-serif' }}>
+                  <Typography variant="h7" component="div" sx={{ fontFamily: 'Nunito, sans-serif' }}>
                     Trip
                   </Typography>
                 </CardContent>
@@ -230,10 +243,10 @@ const OrganizerHome = ({pageViews}) => {
               
               <Card style={{ backgroundColor: 'white', width: '45%', padding: '15px' }}>
                 <CardContent>
-                  <Typography variant="h4" component="div" sx={{ fontFamily: 'Nunito, sans-serif' }}>
+                  <Typography variant="h6" component="div" sx={{ fontFamily: 'Nunito, sans-serif' }}>
                     {participantsCount}
                   </Typography>
-                  <Typography variant="h5" component="div" sx={{ fontFamily: 'Nunito, sans-serif' }}>
+                  <Typography variant="h7" component="div" sx={{ fontFamily: 'Nunito, sans-serif' }}>
                     Participants
                   </Typography>
                 </CardContent>
@@ -242,8 +255,8 @@ const OrganizerHome = ({pageViews}) => {
           </CardContent>
         </Card>
       </div>
-      <div style={{ marginTop: '20px', display: 'flex' }}> {/* Flex container for side-by-side cards */}
-        <Card style={{ backgroundColor: '#f5f5f5', width: '590px', height: '450px', padding: '10px', marginRight: '20px' }}>
+      <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+        <Card style={{ backgroundColor: '#f5f5f5', width: '490px', height: '450px', padding: '10px', marginRight: '20px' }}>
           <CardContent>
             <Typography variant="h5" component="div" sx={{ fontFamily: 'Nunito, sans-serif', color: '#333', paddingBottom: '10px' }}>
               Pie Chart Nationalities
@@ -251,7 +264,7 @@ const OrganizerHome = ({pageViews}) => {
             <PieChartNationalities /> 
           </CardContent>
         </Card>
-        <Card style={{ backgroundColor: '#f5f5f5', width: '610px', height: '450px', padding: '10px' }}>
+        <Card style={{ backgroundColor: '#f5f5f5', width: '510px', height: '450px', padding: '10px' }}>
           <CardContent>
             <Typography variant="h5" component="div" sx={{ fontFamily: 'Nunito, sans-serif', color: '#333', paddingBottom: '10px' }}>
               Trip base on Island Name

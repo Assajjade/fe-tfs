@@ -8,28 +8,56 @@ const ShowParticipants = () => {
   const { id: tripId } = useParams(); 
   const [participants, setParticipants] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await AxiosInstance.get(`trips/participants/${tripId}/`);
-        setParticipants(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching participants:', error);
-        setLoading(false);
-      }
-    };
+    fetchParticipants();
+}, [currentPage]); 
 
-    getData();
-  }, [tripId]);
+const fetchParticipants = () => {
+    setLoading(true);
+    AxiosInstance.get(`trips/participants/${tripId}/?page=${currentPage}`)
+        .then((res) => {
+            if (res.data.results) { // Check if results exist in response
+                setParticipants(res.data.results); // Access trips data directly
+                setTotalPages(res.data.total_pages); // Access total_pages directly
+            } else {
+              setParticipants([]);
+                setTotalPages(0);
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching participants:', error);
+            setParticipants([]);
+            setTotalPages(0);
+        })
+        .finally(() => {
+            setLoading(false);
+        });
+};
 
-  return (
-    <div>
-      {loading ? (
-        <p>Loading data...</p>
-      ) : participants.length > 0 ? (
-        <TableContainer component={Paper} sx={{ borderRadius: '12px', maxWidth: '80%', margin: 'auto' }}>
+
+const handlePreviousPage = () => {
+  if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+  }
+};
+
+const handleNextPage = () => {
+  if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+  }
+};
+
+return (
+  <div>
+    {loading ? (
+      <p>Loading data...</p>
+    ) : participants.length > 0 ? (
+      <div>
+        <TableContainer component={Paper} sx={{ borderRadius: '12px', width: '800px', margin: 'auto' }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -50,18 +78,35 @@ const ShowParticipants = () => {
                   <TableCell>{participant.experience}</TableCell>
                   <TableCell>{participant.application_status}</TableCell>
                   <TableCell>
-                  <Button component={Link} to={`/trips/${tripId}/participants/${participant.user}`} variant="outlined" color="primary"> Details</Button>
+                    <Button
+                      component={Link}
+                      to={`/trips/${tripId}/participants/${participant.user}`}
+                      variant="outlined"
+                      color="primary"
+                    >
+                      Details
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-      ) : (
-        <p>No participants for this trip.</p>
-      )}
-    </div>
-  );
-};
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <Button onClick={handlePreviousPage} disabled={currentPage === 1}>
+            Previous
+          </Button>
+          <p style={{ margin: '0 10px' }}>Page {currentPage} of {totalPages}</p>
+          <Button onClick={handleNextPage} disabled={currentPage === totalPages}>
+            Next
+          </Button>
+        </div>
+      </div>
+    ) : (
+      <p>No participants for this trip.</p>
+    )}
+  </div>
+);
+}
 
 export default ShowParticipants;

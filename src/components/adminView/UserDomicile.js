@@ -19,11 +19,19 @@ const UserDomicile = () => {
     }
   };
 
+  const getRandomColor = () => {
+    // Generate random color code in hexadecimal format
+    return '#' + Math.floor(Math.random()*16777215).toString(16);
+  };
+
   const renderPieChartDomicile = (data) => {
+    const colors = data.map(() => getRandomColor()); // Generate random colors array
+
     const chartOptions = {
       series: data.map(item => item.total_users),
       labels: data.map(item => item.domicile.toString()),
-      colors: ["#DC6B19", "#ECCA9C", "#F7C566"], 
+      colors: colors, // Use the random colors array
+
       chart: {
         height: 420,
         width: "100%",

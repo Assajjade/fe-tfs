@@ -1,18 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import AxiosInstance from "../../Axios";
+import { useAuth } from "../../../context/authContext";
 
 const BlogCreate = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [postDate, setPostDate] = useState(null);
   const [highlight, setHighlight] = useState(0);
+  const { currentUser } = useAuth();
+  const [user, setUser] = useState(null)
+
+  const fetchData = async () => {
+    // console.error('Error fetching user data:', currentUser);
+    try {
+      let responseData = null;
+      if (currentUser?.uid) {
+        const response = await AxiosInstance.get(`user/detail/${currentUser.uid}`);
+        responseData = response.data;
+      }
+      console.log(responseData)
+      setUser(responseData);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };  
+
+  useEffect(() => {
+    fetchData()
+}, [currentUser?.uid]);
+
+  console.log("user",user);
+
   const navigate = useNavigate();
 
   const handleSubmit = () => {
     AxiosInstance.post(`blog/create`, {
-      author: "stprLFLuPChAZhGIzDkVyZ20kTG3",
+      author: user? user.id : 1,
       title: title,
       content: content,
       is_deleted: false,

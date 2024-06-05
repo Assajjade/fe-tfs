@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Grid, Typography, Card, CardHeader, CardActions, Button } from '@mui/material';
+import { Box, Grid, Typography, Card, CardHeader, CardActions, Button, CardContent } from '@mui/material';
 import AxiosInstance from './Axios';
 import ReactMarkdown from 'react-markdown';
+import logo from "../image/background-homepage.png";
+import {Link} from "react-router-dom";
 
 
 const ShowMerchandise = () => {
@@ -29,60 +31,62 @@ const ShowMerchandise = () => {
 
     return (
         <div>
+
             <div>
                 {loading ? (
-                    <p>Loading data...</p>
+                    <p>Loading...</p>
                 ) : (
-                    merchandise.map((item, index) => (
-                        <Card key={index} sx={{backgroundColor: '#f0f0f0', marginBottom: '20px'}}>
-                            <CardHeader
-                                title={item.name}
-                                subheader={`Created at: ${new Date(item.created_at).toLocaleDateString()}`}
-                            />
-                            <Box sx={{padding: 4}}>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Typography variant="body1">
-                                            {/*<strong>Link:</strong> <a href={item.link}>{item.link}</a>*/}
-                                        </Typography>
-                                        <Typography variant="body1">
-                                            <strong>Story:</strong> {item.story}
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    <a href={item.link}><strong>Visit Store Page</strong></a>
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    ))
-                )}
-            </div>
-            <div>
-                {merchandiseSection.map((section, index) => (
-                    <Card key={index} sx={{backgroundColor: '#f0f0f0', marginBottom: '20px'}}>
-                        <CardHeader
-                            title={section.name}
-                        />
-                        <Box sx={{padding: 4}}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <Typography variant="body1">
+                    <Grid container spacing={2}>
+                        {merchandiseSection.map((section, index) => (
+                            <Grid item xs={12} key={index}>
+                                <Card sx={{backgroundColor: '#6fb4f4', marginBottom: '20px'}}>
+                                    <CardHeader
+                                        title={section.name}
+                                    />
+                                    <CardContent>
                                         <ReactMarkdown>
                                             {section.content}
                                         </ReactMarkdown>
-                                    </Typography>
-                                </Grid>
+                                    </CardContent>
+                                </Card>
                             </Grid>
-                        </Box>
-                    </Card>
-                ))}
+                        ))}
+                    </Grid>
+                )}
+            </div>
+
+            <div>
+                <div>
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        <Grid container spacing={2}>
+                            {merchandise.filter(item => !item.is_deleted).map((item, index) => (
+                                <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                                    <Card sx={{backgroundColor: '#ffffff', marginBottom: '20px'}}>
+                                        <CardHeader
+                                            title={item.name}
+                                        />
+                                        <CardContent>
+                                            <Typography variant="body1">
+                                                {item.story}
+                                            </Typography>
+                                        </CardContent>
+                                        <CardActions>
+                                            <Button variant="contained" color="primary" component={Link}
+                                                    to={item.link}>
+                                                Go To Store
+                                            </Button>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    )}
+                </div>
             </div>
         </div>
-
-    );
-};
+    )
+}
 
 export default ShowMerchandise;

@@ -24,13 +24,12 @@ const MerchandiseManage = () => {
                 <p>Wird geladen...</p>
             ) : (
                 <div>
-                    <Button variant="contained" color="primary" component={Link} to="/addMerchandiseSection">
+                    <Button variant="contained" color="primary" component={Link} to="/merchandise/create">
                         Add Merchandise
                     </Button>
                     <Table>
                         <TableBody>
-                            {merchandise.map((item, index) => (
-                                <TableRow key={index}>
+                            {merchandise.filter(item => !item.is_deleted).map((item, index) => (                                <TableRow key={index}>
                                     <TableCell>{item.name}</TableCell>
                                     <TableCell>{item.link}</TableCell>
                                     <TableCell>

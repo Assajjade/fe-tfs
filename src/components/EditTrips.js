@@ -9,6 +9,7 @@ import Dayjs from 'dayjs';
 import { useNavigate, useParams } from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { Link } from 'react-router-dom';
 
 const EditTrips = () => {
   const [trip, setTrip] = useState([]);
@@ -98,6 +99,9 @@ const EditTrips = () => {
 
   return (
     <div>
+        <div class="w-full flex items-start justify-start" style={{ paddingBottom: "15px" }}>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={() => navigate(`/detail/${id}`)}> Back </button>
+        </div>
       {loading ? <p>Loading data...</p> :
         <form onSubmit={handleSubmit(submission)}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', backgroundColor: '#00003f', marginBottom: '10px' }}>

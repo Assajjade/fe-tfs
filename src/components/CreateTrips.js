@@ -9,6 +9,7 @@ import Dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { Link } from 'react-router-dom';
 
 const CreateTrips = () => {
   const [trip, setTrip] = React.useState([]);
@@ -31,7 +32,9 @@ const CreateTrips = () => {
   const defaultValues = {
     area: '',
     island_name: 'Sumatera', // Default to 'Sumatera'
+    island_name: 'Sumatera', // Default to 'Sumatera'
     trip_date: null,
+    duration: '', // Change to string type
     duration: '', // Change to string type
     open_registration: null,
     close_registration: null,
@@ -41,6 +44,7 @@ const CreateTrips = () => {
     skills: '',
     vroles: '',
     captain: '', // Change to string type
+    captain: '', // Change to string type
   };
 
   const schema = yup
@@ -48,6 +52,7 @@ const CreateTrips = () => {
       area: yup.string().required('Area is a required field'),
       island_name: yup.string().required('Island name is a required field'),
       trip_date: yup.date().required('Trip date is a required field'),
+      duration: yup.string().required('Duration is a required field'), // Change to string type
       duration: yup.string().required('Duration is a required field'), // Change to string type
       open_registration: yup.date().required('Open registration date is a required field'),
       close_registration: yup.date().required('Close registration date is a required field'),
@@ -77,16 +82,22 @@ const CreateTrips = () => {
       duration: data.duration,
       open_registration: Dayjs(data.open_registration).format("YYYY-MM-DD"),
       close_registration: Dayjs(data.close_registration).format("YYYY-MM-DD"),
+      open_registration: Dayjs(data.open_registration).format("YYYY-MM-DD"),
+      close_registration: Dayjs(data.close_registration).format("YYYY-MM-DD"),
       objective: data.objective,
       preparation: data.preparation,
+      capacity: data.capacity,
       capacity: data.capacity,
       skills: data.skills,
       vroles: data.vroles,
       captain: data.captain,
+      captain: data.captain,
     };
+
 
     AxiosInstance.post(`trips/create/`, tripData)
       .then((res) => {
+        handleOpenDialog();
         handleOpenDialog();
       })
       .catch((error) => {
@@ -94,8 +105,17 @@ const CreateTrips = () => {
       });
   };
 
+
   return (
     <div>
+        <div className="flex" style={{ marginBottom: '20px' }}>
+            <Button component={Link} to="/trips" variant="contained" color="primary" style={{ marginRight: '10px' }}>
+                Trip
+            </Button>
+            <Button component={Link} to="/trips/create" variant="contained" color="primary">
+                Create
+            </Button>
+        </div>
       {loading ? <p>Loading data...</p> :
         <form onSubmit={handleSubmit(submission)}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', backgroundColor: '#00003f', marginBottom: '10px' }}>
@@ -105,6 +125,7 @@ const CreateTrips = () => {
           </Box>
           <Box sx={{ display: 'flex', width: '100%', boxShadow: 3, padding: 4, flexDirection: 'column' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-around', marginBottom: '40px' }}>
+            <input type="file" name="trip_pic" accept="image/*" /> 
               <TheTextField
                 label="Area"
                 name="area"
@@ -117,7 +138,7 @@ const CreateTrips = () => {
                 name="island_name"
                 control={control}
                 defaultValue="Sumatera"
-                style={{ width: '150px' }}
+                style={{ width: '320px' }}
                 MenuProps={{ style: { width: '150px' } }}
               >
                 <MenuItem value="Sumatera">Sumatera</MenuItem>
@@ -227,3 +248,4 @@ const CreateTrips = () => {
 };
 
 export default CreateTrips;
+

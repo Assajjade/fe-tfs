@@ -10,7 +10,7 @@ import Layout from "../components/pages/Layout";
 import VolunteerSignUp from "../components/VolunteerSignUp";
 import ForgetPassword from "../components/ForgetPassword";
 import Blog from "../components/pages/Blog";
-import DetailBlog from "../components/pages/blog/BlogDetail";
+import DetailBlog from "../components/pages/blog/DetailBlog";
 import CrowdFundingUserView from "../components/CrowdFundingUserView";
 import MerchandiseHome from "../components/MerchandiseHome";
 import EditMerchandise from "../components/EditMerchandise";
@@ -39,18 +39,12 @@ const AppRouter = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/organizer" element={<Organizer />} />
+          <Route path="/volunteer/:trip_id/:language" element={<VolunteerDetail />} />
+          <Route path="/volunteer/:trip_id/register/:language" element={<VolunteerForm />} />
           <Route path="/volunteer/:language" element={<Volunteer />} />
-          <Route
-            path="/volunteer/detail/:trip_id"
-            element={<VolunteerDetail />}
-          />
-          <Route
-            path="/volunteer/:trip_id/register"
-            element={<VolunteerForm />}
-          />
           <Route path="/blog/:languange" element={<Blog />} />
           <Route path="/blog/" element={<Blog />} />
-          <Route path="/blog/detail/:blog_id" element={<DetailBlog />} />
+          <Route path="/blog/details/:blog_id" element={<DetailBlog />} />
           <Route path="/blog/detail/" element={<DetailBlog />} />
           <Route path="/merchandise" element={<MerchandiseHome />} />
           <Route path="/merchandise/:id" element={<EditMerchandise />} />

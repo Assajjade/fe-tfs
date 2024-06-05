@@ -10,9 +10,13 @@ import {
   IoChatbubbleOutline,
   IoShareOutline,
   IoAlertCircleOutline,
+  IoCaretUpOutline,
+  IoThumbsUp,
+  IoThumbsDown
 } from "react-icons/io5";
 import ReportModal from "./ReportModal";
 import BgSea from '../../../image/bg-sea3.jpg';
+import { useAuth } from "../../../context/authContext";
 
 
 const DetailBlog = () => {
@@ -28,11 +32,14 @@ const DetailBlog = () => {
   const [showShareModal, setShowShareModal] = useState(false);
   const [pageLink, setPageLink] = useState('');
   const [startTime, setStartTime] = useState(Date.now());
+  const { currentUser, logout } = useAuth();
+  const [data, setData] = useState();
+  // console.log(currentUser)
 
   useEffect(() => {
     AxiosInstance.get(`blog/${blog_id}`).then((res) => {
       setBlog(res.data);
-      console.log(res.data);
+      // console.log(res.data);
     }).catch(error => {
       console.error('Error fetching blog data:', error);
     });
@@ -44,8 +51,58 @@ const DetailBlog = () => {
     });
 
     // Add analytics logging code here if needed
-
+    fetchData()
+    console.log(data)
   }, [blog_id]);
+
+
+  const fetchData = async () => {
+    try {
+      let responseData = null;
+      if (currentUser?.uid) {
+        const response = await AxiosInstance.get(`user/detail/${currentUser?.uid}`);
+        responseData = response.data;
+      }
+      setData(responseData);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  const UpVote = () => {
+    AxiosInstance.get(`blog/up-vote/${blog_id}`, {
+      user: data.id,
+    }).then((response) => {
+      console.log('Comment submitted successfully:', response.data);
+      AxiosInstance.get(`blog/${blog_id}`).then((res) => {
+        setBlog(res.data);
+        // console.log(res.data);
+      }).catch(error => {
+        console.error('Error fetching blog data:', error);
+      });
+    })
+    .catch((error) => {
+      console.error('Error submitting comment:', error);
+    });
+    
+  }
+
+  const DownVote = () => {
+    AxiosInstance.get(`blog/down-vote/${blog_id}`, {
+      user: data.id,
+    }).then((response) => {
+      console.log('Comment submitted successfully:', response.data);
+      AxiosInstance.get(`blog/${blog_id}`).then((res) => {
+        setBlog(res.data);
+        // console.log(res.data);
+      }).catch(error => {
+        console.error('Error fetching blog data:', error);
+      });
+    })
+    .catch((error) => {
+      console.error('Error submitting down vote:', error);
+    });
+  }
 
   const ShowDrawer = (type) => {
     if (type === "comment") {
@@ -94,7 +151,7 @@ const DetailBlog = () => {
   const submitComment = (values) => {
     const { comment } = values;
     AxiosInstance.post('comments/', {
-      user: "yessforall",
+      user: data.id,
       text: comment,
       blog: blog_id
     })
@@ -132,7 +189,7 @@ const DetailBlog = () => {
       <div className="my-8 items-center">
         <hr className="border-gray-300 mb-4" />
         <div className="flex justify-between space-x-4 mx-5">
-          <div className="space-x-4">
+          <div className="space-x-4 flex">
             <button className="bg-red-500 text-white px-4 py-2 rounded-md">
               <IoHeartOutline />
             </button>
@@ -141,6 +198,28 @@ const DetailBlog = () => {
               onClick={() => ShowDrawer("comment")}
             >
               <IoChatbubbleOutline />
+            </button>
+            <button
+              className="bg-blue-500 text-white px-2  rounded-md h-[32px] flex gap-1"
+              onClick={() => UpVote()}
+            >
+              <div className="py-2">
+              <IoThumbsUp />
+              </div>
+              <div className="py-1">
+               {blog.up_vote}
+               </div>
+            </button>
+            <button
+              className="bg-blue-500 text-white px-2  rounded-md h-[32px] flex gap-1"
+              onClick={() => DownVote()}
+            >
+              <div className="py-2">
+              <IoThumbsDown />
+              </div>
+              <div className="py-1">
+               {blog.down_vote}
+               </div>
             </button>
           </div>
           <div>

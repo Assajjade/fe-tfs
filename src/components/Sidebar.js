@@ -1,198 +1,194 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import { IconContext } from 'react-icons/lib';
-import * as IoIcons from 'react-icons/io'; 
-import * as RiIcons from 'react-icons/ri'; 
+import { Link, useLocation } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import MenuIcon from '@mui/icons-material/Menu';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import HomeIcon from '@mui/icons-material/Home';
+import LocalAirportIcon from '@mui/icons-material/LocalAirport';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import { AccountCircle } from '@mui/icons-material';
+import { IoEarth, IoPeople } from 'react-icons/io5';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
-const Nav = styled.div` background: #65CCD0; height: 80px; display: flex; justify-content: flex-start; align-items: center; `;
+export default function Sidebar(props) {
+  const { drawerWidth, content } = props;
+  const location = useLocation();
+  const path = location.pathname;
+  const [open, setOpen] = useState(false);
 
-const NavIcon = styled(Link)` margin-left: 2rem; font-size: 2rem; height: 80px; display: flex; justify-content: flex-start; align-items: center; `;
-
-const SidebarNav = styled.nav` background: #65CCD0; width: 250px; height: 100vh; display: flex; justify-content: center; position: fixed; top: 0; left: ${({ sidebar }) => (sidebar ? '0' : '-100%')}; transition: 350ms; z-index: 10; `;
-
-const SidebarWrap = styled.div`width: 100%;`;
-
-const SidebarLink = styled(Link)`
-  display: flex;
-  color: #000000;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  list-style: none;
-  height: 60px;
-  text-decoration: none;
-  font-size: 18px;
-
-  &:hover {
-    background: #f5f5f5;
-    border-left: 4px solid #632ce4;
-    cursor: pointer;
-  }
-`;
-
-const SidebarLabel = styled.span`
-  margin-left: 16px;
-    padding: 18px;
-`;
-
-const DropdownLink = styled(Link)`
-  background: #91eaed;
-  height: 60px;
-  padding-left: 3rem;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #000000;
-  font-size: 18px;
-
-  &:hover {
-    background: #632ce4;
-    cursor: pointer;
-  }
-`;
-
-const Sidebar = () => {
-  const [sidebar, setSidebar] = useState(false);
-
-  const showSidebar = () => setSidebar(!sidebar);
-
-  const SidebarData = [
-    {
-      title: 'Admin',
-      path: '/admin',
-      icon: <AiIcons.AiFillHome />,
-      iconClosed: <RiIcons.RiArrowDownSFill />,
-      iconOpened: <RiIcons.RiArrowUpSFill />,
-    },
-    {
-      title: 'Trips',
-      path: '/trips',
-      icon: <IoIcons.IoIosPaper />,
-      iconClosed: <RiIcons.RiArrowDownSFill />,
-      iconOpened: <RiIcons.RiArrowUpSFill />,
-      subNav: [
-        {
-          title: 'Trips',
-          path: '/trips',
-          icon: <IoIcons.IoIosPaper />,
-          cName: 'sub-nav'
-        },
-        {
-          title: 'Create',
-          path: '/trips/create',
-          icon: <IoIcons.IoIosPaper />,
-          cName: 'sub-nav'
-        },
-      ]
-    },
-    {
-      title: 'Blogs',
-      path: '/blogs',
-      icon: <FaIcons.FaCartPlus />,
-      iconClosed: <RiIcons.RiArrowDownSFill />,
-      iconOpened: <RiIcons.RiArrowUpSFill />,
-      subNav: [
-        {
-          title: 'Blogs',
-          path: '/blogs',
-          icon: <IoIcons.IoIosPaper />,
-          cName: 'sub-nav'
-        },
-        {
-          title: 'Create',
-          path: '/blog/create',
-          icon: <IoIcons.IoIosPaper />,
-          cName: 'sub-nav'
-        },
-      ]
-    },
-    {
-      title: 'Crowdfunding',
-      path: '/crowdfunding',
-      icon: <IoIcons.IoMdPeople />,
-    },
-    {
-      title: 'Merchandise',
-      path: '/merchandise',
-      icon: <FaIcons.FaEnvelopeOpenText />,
-    },
-    {
-      title: 'Manage Content',
-      icon: <FaIcons.FaEnvelopeOpenText />,
-      iconClosed: <RiIcons.RiArrowDownSFill />,
-      iconOpened: <RiIcons.RiArrowUpSFill />,
-      subNav: [
-        {
-          title: 'About us',
-          path: '/about-us"',
-          icon: <IoIcons.IoIosPaper />
-        },
-        {
-          title: 'Home Page',
-          path: '/homepage/manage',
-          icon: <IoIcons.IoIosPaper />
-        }
-      ]
-    },
-  ];
-
-  const SubMenu = ({ item }) => {
-    const [subnav, setSubnav] = useState(false);
-
-    const showSubnav = () => setSubnav(!subnav);
-
-    return (
-      <>
-        <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
-          <div>
-            {item.icon}
-            <SidebarLabel>{item.title}</SidebarLabel>
-          </div>
-          <div>
-            {item.subNav && subnav
-              ? item.iconOpened
-              : item.subNav
-              ? item.iconClosed
-              : null}
-          </div>
-        </SidebarLink>
-        {subnav &&
-          item.subNav.map((item, index) => {
-            return (
-              <DropdownLink to={item.path} key={index}>
-                {item.icon}
-                <SidebarLabel>{item.title}</SidebarLabel>
-              </DropdownLink>
-            );
-          })}
-      </>
-    );
+  const toggleDrawer = () => {
+    setOpen(!open);
   };
 
-  return (
-    <>
-      <IconContext.Provider value={{ color: 'black' }}>
-        <Nav>
-          <NavIcon to='#'>
-            <FaIcons.FaBars onClick={showSidebar} />
-          </NavIcon>
-        </Nav>
-        <SidebarNav sidebar={sidebar}>
-          <SidebarWrap>
-            <NavIcon to='#'>
-              <AiIcons.AiOutlineClose onClick={showSidebar} />
-            </NavIcon>
-            {SidebarData.map((item, index) => {
-              return <SubMenu item={item} key={index} />;
-            })}
-          </SidebarWrap>
-        </SidebarNav>
-      </IconContext.Provider>
-    </>
-  );
-};
+  const myDrawer = (
+    <div>
+      <Toolbar />
+      <Box  sx={{ overflow: "auto", padding:"20px" }}>
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton
+              component={Link}
+              to="/admin"
+              selected={"/admin" === path}
+              sx={{ borderRadius: '10px', padding: '18px' }} 
+            >
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Home"} sx={{ fontFamily: 'Nunito, sans-serif' }} /> {/* Apply Nunito font */}
+            </ListItemButton>
+          </ListItem>
 
-export default Sidebar;
+          <ListItem disablePadding>
+            <ListItemButton
+              component={Link}
+              to="/trips"
+              selected={"/trips" === path}
+              sx={{ borderRadius: '10px', padding: '18px' }} // Add styling here
+            >
+              <ListItemIcon>
+                <LocalAirportIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Trips"} sx={{ fontFamily: 'Nunito, sans-serif' }} /> {/* Apply Nunito font */}
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton
+              component={Link}
+              to="/blogs"
+              selected={"/blogs" === path}
+              sx={{ borderRadius: '10px', padding: '18px' }} // Add styling here
+            >
+              <ListItemIcon>
+                <BorderColorIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Blogs"} sx={{ fontFamily: 'Nunito, sans-serif' }} /> {/* Apply Nunito font */}
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+          <ListItemButton
+            component={Link}
+            to="/merchandise"
+            selected={"/merchandise" === path}
+            sx={{ borderRadius: '10px', padding: '18px' }} // Add styling here
+          >
+            <ListItemIcon>
+              <LocalGroceryStoreIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Merchandise"} sx={{ fontFamily: 'Nunito, sans-serif' }} /> {/* Apply Nunito font */}
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+        <ListItemButton
+          component={Link}
+          to="/crowdfunding"
+          selected={"/crowdfunding" === path}
+          sx={{ borderRadius: '10px', padding: '18px' }} // Add styling here
+        >
+          <ListItemIcon>
+            <MonetizationOnIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Crowdfunding"} sx={{ fontFamily: 'Nunito, sans-serif' }} /> {/* Apply Nunito font */}
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+      <ListItemButton
+        component={Link}
+        to="/manage-access"
+        selected={"/manage-access" === path}
+        sx={{ borderRadius: '10px', padding: '18px' }} // Add styling here
+      >
+        <ListItemIcon>
+          <ManageAccountsIcon />
+        </ListItemIcon>
+        <ListItemText primary={"Manage Access"} sx={{ fontFamily: 'Nunito, sans-serif' }} /> {/* Apply Nunito font */}
+      </ListItemButton>
+    </ListItem>
+        </List>
+      </Box>
+    </div>
+  );
+
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backgroundColor: '#65CCD0',
+          boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+        }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            onClick={toggleDrawer}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon style={{ color: 'black' }} />
+          </IconButton>
+          <IconButton
+            color="inherit"
+            onClick={toggleDrawer}
+            sx={{ mr: 2, display: { xs: 'block', sm: 'block' } }}
+          >
+            <MenuIcon style={{ color: 'black' }} />
+          </IconButton>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{
+              fontFamily: 'Nunito, sans-serif',
+              color: 'black',
+              height: '70px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            Organizer TFS
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      <Drawer
+        variant="temporary"
+        open={open}
+        onClose={toggleDrawer}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            backgroundColor: '#65CCD0',
+          },
+        }}
+      >
+        {myDrawer}
+      </Drawer>
+
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Toolbar />
+        {content}
+      </Box>
+      {open && <div onClick={toggleDrawer} style={{ position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, zIndex: 1200 }} />}
+    </Box>
+  );
+}

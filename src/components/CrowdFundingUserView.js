@@ -5,10 +5,11 @@ import { IconButton } from '@mui/material';
 import CrowdFundingWriting from './CrowdFundingWriting';
 import HighlightedCrowdFunding from './HighlightedCrowdFunding';
 import CrowdFundingPage from './CrowdFundingPage';
+import qr from '../image/qr.jpg'; 
 
 const CrowdFundingUserView = () => {
     const [currentSection, setCurrentSection] = useState(0);
-    const totalSections = 3;
+    const totalSections = 4;
 
     useEffect(() => {
         const handleScroll = () => {
@@ -46,7 +47,7 @@ const CrowdFundingUserView = () => {
 
     return (
         <div>
-            <section id="section-0">
+            <section id="section-0" style={{margin: 0, padding: 0, width: "100%", height: "100%",}}>
                 <CrowdFundingPage />
             </section>
             <section id="section-1">
@@ -55,8 +56,14 @@ const CrowdFundingUserView = () => {
             <section id="section-2">
                 <HighlightedCrowdFunding />
             </section>
-            <section id="section-3">
-
+            <section id="section-3" style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ flex: 1 }}>
+                    <img src={qr} alt="QR Code" style={{ width: '80%', height: '100%' }} />
+                </div>
+                <div style={{ flex: 1, marginLeft: '20px' }}>
+                    <h1 style={{ fontSize: '2rem' }}>Want to directly donate to us?</h1>
+                    <p style={{ fontSize: '1.2rem' }}>Contact us <a href="https://www.instagram.com/thefloatingschool" style={{ color: 'blue', textDecoration: 'underline', transition: 'color 0.3s, text-shadow 0.3s' }}>now</a>.</p>
+                </div>
             </section>
             <div className="fixed bottom-10 right-10">
                 {currentSection < totalSections - 1 ? (

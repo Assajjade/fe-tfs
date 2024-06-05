@@ -209,7 +209,7 @@ const FundingWritingPage = () => {
     }
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: '20px' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <div className="section" style={{ marginBottom: '20px', width: '80%', border: '1px solid #ccc', borderRadius: '5px', padding: '10px', backgroundColor: fundingWritingPageOpen ? '#f5f5f5' : 'inherit' }}>
                 <button
                     style={{
@@ -276,6 +276,7 @@ const FundingWritingPage = () => {
                                     <th>Number</th>
                                     <th>Title</th>
                                     <th>Content</th>
+                                    <th>Show</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>

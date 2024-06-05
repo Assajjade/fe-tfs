@@ -33,10 +33,12 @@ import CWSignUp from "../components/pages/admin/CWSignUp";
 import IOSignUp from "../components/pages/admin/IOSignUp";
 import { useAuth } from "../context/authContext";
 import AxiosInstance from "../components/Axios";
-
+import ManageAccess from "../components/ManageAccess";
 const OrganizerRouter = () => {
   const [data, setData] = useState();
   const { currentUser } = useAuth();
+  console.log(currentUser);
+
 
   const fetchData = async () => {
     try {
@@ -47,7 +49,7 @@ const OrganizerRouter = () => {
         );
         responseData = response.data;
       }
-      console.log(responseData);
+    // console.log(responseData);
 
       setData(responseData);
     } catch (error) {
@@ -58,44 +60,64 @@ const OrganizerRouter = () => {
   useEffect(() => {
     fetchData();
   }, [currentUser?.uid]);
+  // console.log(data);
 
   return (
     <div>
       {/* Conditionally render SidebarIO based on user's role */}
-      {/* {data && data.role && data.role.includes("IO") && ( */}
+      {data && data.role && data.role.includes("IO") && (
         <SidebarIO
           drawerWidth={220}
           content={
             <Routes>
-              <Route path="/admin" element={<Admin />} />
-              <Route
-                path="/admin/island-organizer"
-                element={<IslandOrganizer />}
+              <Route path="/organizer" element={<OrganizerHome />} />
+              <Route path="/trips" element={<Trips />} />
+              <Route path="/trips/create" element={<CreateTrips />} />
+              <Route path="/edit/:id" element={<EditTrips />} />
+              <Route path="/detail/:id" element={<DetailTrips />} />
+              <Route path="/trips/:id/participants" element={<ShowParticipants />} />
+              <Route path="/trips/:id/add-questions/" element={<CreateQuestions />} />
+              <Route path="/trips/:tripId/participants/:userId" element={<DetailParticipants />}/>
+              <Route path="/trips/:tripId/participants/:userId/edit" element={<EditApplicationStatus />}
               />
+            </Routes>
+          }
+        />
+      )}
+
+      {data && data.role && data.role.includes("CW") && (
+        <SidebarCW
+          drawerWidth={260}
+          content={
+            <Routes>
+              <Route path="/cw/dashboard" element={<ContentWriterDashboard />}/>
+              <Route path="/blogs" element={<BlogList />} />
+              <Route path="/blog/:blog_id" element={<BlogDetail />} />
+              <Route path="/blog/update/:blog_id" element={<BlogEdit />} />
+              <Route path="/blog/create" element={<BlogCreate />} />
+            </Routes>
+          }
+        />
+      )}
+
+      {/* {data && data.role && data.role.includes("User") && ( */}
+        <Sidebar
+          drawerWidth={260}
+          content={
+            <Routes>
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/island-organizer" element={<IslandOrganizer />}/>
               <Route path="/admin/content-writer" element={<ContentWriter />} />
               <Route path="/admin/comment-report" element={<CommentReport />} />
-              <Route
-                path="/admin/island-organizer/signup"
-                element={<IOSignUp />}
-              />
-              <Route
-              path="/admin/content-writer/signup"
-              element={<CWSignUp />}
-            />
+              <Route path="/admin/island-organizer/signup" element={<IOSignUp />}/>
+              <Route path="/admin/content-writer/signup" element={<CWSignUp />}/>
               <Route path="/fund" element={<FundingLandingPage />} />
               <Route path="/highlighted" element={<HighlightedFunding />} />
               <Route path="/crowdfunding" element={<CrowdFundingAdmin />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
-              <Route
-                path="/cw/dashboard"
-                element={<ContentWriterDashboard />}
-              />
+              <Route path="/cw/dashboard" element={<ContentWriterDashboard />}/>
               <Route path="/about-us" element={<AboutUsAdmin />} />
               <Route path="/homepage/manage" element={<ManageHomepage />} />
-              <Route
-                path="/cw/dashboard"
-                element={<ContentWriterDashboard />}
-              />
               <Route path="/blogs" element={<BlogList />} />
               <Route path="/blog/:blog_id" element={<BlogDetail />} />
               <Route path="/blog/update/:blog_id" element={<BlogEdit />} />
@@ -105,62 +127,16 @@ const OrganizerRouter = () => {
               <Route path="/trips/create" element={<CreateTrips />} />
               <Route path="/edit/:id" element={<EditTrips />} />
               <Route path="/detail/:id" element={<DetailTrips />} />
-              <Route
-                path="/trips/:id/participants"
-                element={<ShowParticipants />}
-              />
-              <Route
-                path="/trips/:id/add-questions/"
-                element={<CreateQuestions />}
-              />
-              <Route
-                path="/trips/:tripId/participants/:userId"
-                element={<DetailParticipants />}
-              />
-              <Route
-                path="/trips/:tripId/participants/:userId/edit"
-                element={<EditApplicationStatus />}
-              />
+              <Route path="/trips/:id/participants" element={<ShowParticipants />}/>
+              <Route path="/trips/:id/add-questions/" element={<CreateQuestions />}/>
+              <Route path="/trips/:tripId/participants/:userId" element={<DetailParticipants />}/>
+              <Route path="/trips/:tripId/participants/:userId/edit" element={<EditApplicationStatus />}/>
+              <Route path="/manage-access" element={<ManageAccess />}/>
+              <Route path="/io/dashboard" element={<OrganizerHome/>}/>
             </Routes>
           }
         />
       {/* )} */}
-
-      {data && data.role && data.role.includes("CW") && (
-        <SidebarCW
-          drawerWidth={260}
-          content={
-            <Routes>
-              <Route
-                path="/cw/dashboard"
-                element={<ContentWriterDashboard />}
-              />
-              <Route path="/blogs" element={<BlogList />} />
-              <Route path="/blog/:blog_id" element={<BlogDetail />} />
-              <Route path="/blog/update/:blog_id" element={<BlogEdit />} />
-              <Route path="/blog/create" element={<BlogCreate />} />
-            </Routes>
-          }
-        />
-      )}
-
-      {data && data.role && data.role.includes("Admin") && (
-        <SidebarCW
-          drawerWidth={260}
-          content={
-            <Routes>
-              <Route
-                path="/cw/dashboard"
-                element={<ContentWriterDashboard />}
-              />
-              <Route path="/blogs" element={<BlogList />} />
-              <Route path="/blog/:blog_id" element={<BlogDetail />} />
-              <Route path="/blog/update/:blog_id" element={<BlogEdit />} />
-              <Route path="/blog/create" element={<BlogCreate />} />
-            </Routes>
-          }
-        />
-      )}
     </div>
   );
 };

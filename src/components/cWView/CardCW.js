@@ -48,7 +48,7 @@ const CardCW = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-      <Card style={{ backgroundColor: '#f5f5f5', width: '300px', height: '200px' }}>
+      <Card style={{ backgroundColor: '#f5f5f5', width: '250px', height: '150px' }}>
         <CardContent>
           <Typography variant="h5" component="div" sx={{ fontFamily: 'Nunito, sans-serif', color: '#333' }}>
             Comment
@@ -59,7 +59,8 @@ const CardCW = () => {
         </CardContent>
       </Card>
 
-      <Card style={{ backgroundColor: '#f5f5f5', width: '300px', height: '200px' }}>
+      <div style={{ width: '10px' }} /> 
+      <Card style={{ backgroundColor: '#f5f5f5', width: '250px', height: '150px' }}>
         <CardContent>
           <Typography variant="h5" component="div" sx={{ fontFamily: 'Nunito, sans-serif', color: '#333' }}>
             Comment Reports
@@ -70,7 +71,8 @@ const CardCW = () => {
         </CardContent>
       </Card>
 
-      <Card style={{ backgroundColor: '#f5f5f5', width: '300px', height: '200px' }}>
+      <div style={{ width: '10px' }} />
+      <Card style={{ backgroundColor: '#f5f5f5', width: '250px', height: '150px' }}>
         <CardContent>
           <Typography variant="h5" component="div" sx={{ fontFamily: 'Nunito, sans-serif', color: '#333' }}>
             Blog

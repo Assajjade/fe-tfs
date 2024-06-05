@@ -19,7 +19,9 @@ const SingleLine = () => {
     }
   }
 
-  const renderLineChart = (data) => { 
+  const renderLineChart = (data) => {
+    const uniqueYValues = Array.from(new Set(data.map(item => item.total_users)));
+
     const options = {
       xaxis: {
         categories: data.map(item => item.date),
@@ -43,11 +45,12 @@ const SingleLine = () => {
           style: {
             fontFamily: "Inter, sans-serif",
             cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
-          },
-          formatter: function (date) {
-            return date;
           }
-        }
+        },
+        formatter: function (value) {
+          return Math.round(value);
+        },
+        categories: uniqueYValues 
       },
       series: [
         {

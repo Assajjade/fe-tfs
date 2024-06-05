@@ -6,6 +6,7 @@ import AxiosInstance from "../../Axios";
 
 
 function IntroPost({ post }) {
+  console.log("Halo")
   const navigate = useNavigate();
   const firstLanguange = useParams();
   const [language, setLanguage] = useState(firstLanguange.languange); // Default language is English
@@ -37,7 +38,7 @@ function IntroPost({ post }) {
     <div className="mt-10 px-10 md:px-15 lg:px-32 gap-8">
       <div
         className="grid grid-cols-1 md:grid-cols-2 bg-gray-300 p-3 rounded-2xl  w-full h-full"
-        onClick={() => navigate(`/blog/detail/${post.id}`, { replace: true })}
+        onClick={() => navigate(`/blog/details/${post.id}`, { replace: true })}
       >
         <img src={Header} className="rounded-2xl object-cover" alt="Header" />
         <div className="m-5 flex flex-col justify-between">
@@ -48,8 +49,8 @@ function IntroPost({ post }) {
           <div id="hallo" className="flex items-center mt-5 px-3">
             <img src={account} className="rounded-full w-[50px]" alt="Account" />
             <div className="ml-2 flex justify-start flex-col">
-              <div className="font-bold flex">{post.author.name}</div>
-              <div className="text-gray-600">{new Date(post.created_at).toLocaleString()}</div>
+              {/* <div className="font-bold flex">{post.author.name}</div> */}
+              <div className="text-gray-600">{post.created_at}</div>
             </div>
           </div>
         </div>

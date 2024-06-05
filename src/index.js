@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import global_en from "./translations/en/blog.json";
 import global_id from "./translations/id/blog.json";
 import i18next from "i18next";
+import ReactGA from 'react-ga';
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -33,3 +34,6 @@ root.render(
 );
 
 reportWebVitals();
+
+const TRACKING_ID = "G-F8S7FMEKMP";
+ReactGA.initialize(TRACKING_ID);

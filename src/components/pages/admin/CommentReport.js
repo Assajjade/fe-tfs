@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import AxiosInstance from "../../Axios";
@@ -25,7 +26,6 @@ const CommentReport = () => {
       cell: (row) => <Button onClick={() => handleAction(row)}>Action</Button>,
     },
   ];
-  
 
   const data = [
     {
@@ -110,20 +110,31 @@ const CommentReport = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="text-end">
-        <input
-          className="border-2 rounded-lg border-black"
-          type="text"
-          onChange={handleFilter}
+    <div>
+      <div className={"flex"} style={{ marginBottom: '20px' }}>
+        <Button component={Link} to="/blogs" variant="contained" color="primary" style={{ marginRight: '10px' }}>
+          Blog List
+        </Button>
+        <Button component={Link} to="/admin/comment-report" variant="contained" color="primary">
+          Comment Report
+        </Button>
+      </div>
+      
+      <div className="container mt-5">
+        <div className="text-end">
+          <input
+            className="border-2 rounded-lg border-black"
+            type="text"
+            onChange={handleFilter}
+          />
+        </div>
+        <DataTable columns={columns} data={record} fixedHeader pagination />
+        <DeleteCommentModal
+          open={showDeleteModal}
+          handleClose={() => setShowDeleteModal(false)}
+          comment={comment}
         />
       </div>
-      <DataTable columns={columns} data={record} fixedHeader pagination />
-      <DeleteCommentModal
-        open={showDeleteModal}
-        handleClose={() => setShowDeleteModal(false)}
-        comment={comment}
-      />
     </div>
   );
 };

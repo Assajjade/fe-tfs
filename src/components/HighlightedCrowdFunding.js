@@ -37,7 +37,7 @@ const HighlightedCrowdFunding = () => {
                         <div key={index} className="bg-white p-4 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105" style={{ width: calculateCardWidth(), marginRight: '10px', backgroundColor: 'rgba(79, 167, 171, 0.4)',  padding: "20px" }}>
                             <h3 className="text-xl font-bold mb-3">{item.title}</h3>
                             <p>{item.purpose}</p>
-                            <a href={item.link} target="_blank" rel="noopener noreferrer" className="block mt-4 py-2.5 px-5 text-sm font-medium text-white focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 transition duration-300 ease-in-out">Go to Campaign</a>
+                            <a href={item.link} target="_blank" rel="noopener noreferrer" className="block mt-4 py-2.5 px-5 text-sm font-medium text-white focus:outline-none rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 transition duration-300 ease-in-out" style={{ backgroundColor: '#051650' }}>Go to campaign</a>
                         </div>
                     ))}
                 </div>

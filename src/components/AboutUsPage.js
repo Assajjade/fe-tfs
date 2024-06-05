@@ -27,7 +27,7 @@ const AboutUsPage = () => {
                         </span>
                     </div>
                 </div>
-                <img className="bg bg-black " src={bg} alt="bg"/>
+                <img className="bg bg-black w-full" src={bg} alt="bg"/>
             </div>
             <div className="vision-mission grid grid-cols-1 gap-[110px] py-[65px]">
                 <div className="vision grid grid-cols-2">

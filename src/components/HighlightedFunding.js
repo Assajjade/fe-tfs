@@ -224,27 +224,28 @@ const HighlightedFunding = () => {
     
             const updatedData = landingPageData.map(item => ({
                 ...item,
-                highlighted: false
+                highlighted: false // Set the 'highlighted' property to false for all items
             }));
     
             const promises = updatedData.map(async item => {
                 const response = await AxiosInstance.put(`crowdfunding/update/${item.id}/`, item);
                 if (response.status === 200 || response.status === 204) {
-                    console.log(` updated successfully.`);
+                    console.log(`Item with ID ${item.id} updated successfully.`);
                 } else {
-                    console.error(`Error updating item  ${response.statusText}`);
+                    console.error(`Error updating item with ID ${item.id}: ${response.statusText}`);
                 }
             });
     
             await Promise.all(promises);
     
-            setHighlightedData(updatedData);
+            setLandingPageData(updatedData);
             console.log('All items updated successfully.');
     
         } catch (error) {
             console.error('Error updating The Content:', error);
         }
     };
+    
 
     const renderForm = () => {
         return (
@@ -284,7 +285,7 @@ const HighlightedFunding = () => {
     };
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: '20px' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <div className="section" style={{ marginBottom: '20px', width: '80%', border: '1px solid #ccc', borderRadius: '5px', padding: '10px', backgroundColor: landingPageOpen ? '#f5f5f5' : 'inherit' }}>
                 <button
                     style={{

@@ -19,14 +19,19 @@ const PieChartUserNationalities = () => {
     }
   };
 
+  const getRandomColor = () => {
+    return '#' + Math.floor(Math.random()*16777215).toString(16);
+  };
+
   const renderPieChartNationalities = (data) => {
-    console.log("Data:", data); // Add this line for debugging
+    console.log("Data:", data); 
+
+    const colors = data.map(() => getRandomColor()); 
 
     const chartOptions = {
       series: data.map(item => item.total_users),
-      labels: data.map(item => item.nationality.toString()), 
-      colors: ["#1C64F2", "#16BDCA", "#9061F9"], 
-
+      labels: data.map(item => item.nationality.toString()),
+      colors: colors,
       chart: {
         height: 420,
         width: "100%",

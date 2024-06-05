@@ -31,6 +31,17 @@ const EditMerchandise = () => {
         });
     };
 
+    const deleteMerchandise = () => {
+        AxiosInstance.delete(`merchandise/${id}/`)
+            .then((res) => {
+                console.log(res.data);
+                navigate('/merchandise');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };
+
     React.useEffect(() => {
         GetData();
     }, []);
@@ -126,6 +137,9 @@ const EditMerchandise = () => {
                         <Box sx={{ display: 'flex', justifyContent: 'start', marginTop: '40px' }}>
                             <Button variant="contained" type="submit" sx={{ width: '30%' }}>
                                 Update
+                            </Button>
+                            <Button variant="contained" color="error" onClick={deleteMerchandise} sx={{ marginLeft: '10px', width: '30%' }}>
+                                Delete
                             </Button>
                         </Box>
                     </Box>

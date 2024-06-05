@@ -28,9 +28,10 @@ export default function SidebarCW(props) {
   const path = location.pathname;
   const [open, setOpen] = React.useState(true);
 
-  const changeOpenStatus = () => {
+  const toggleDrawer = () => {
     setOpen(!open);
   };
+
 
   const myDrawer = (
     <div>
@@ -96,14 +97,14 @@ export default function SidebarCW(props) {
         <Toolbar>
           <IconButton
             color="inherit"
-            onClick={changeOpenStatus}
+            onClick={toggleDrawer}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
             <MenuIcon style={{ color: "black" }} />
           </IconButton>
           <IconButton
             color="inherit"
-            onClick={changeOpenStatus}
+            onClick={toggleDrawer}
             sx={{ mr: 2, display: { xs: "block", sm: "block" } }}
           >
             <MenuIcon style={{ color: "black" }} />
@@ -114,35 +115,29 @@ export default function SidebarCW(props) {
           </Typography>
         </Toolbar>
       </AppBar>
-
       <Drawer
-        variant="permanent"
+        variant="temporary"
+        open={open}
+        onClose={toggleDrawer}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
+          '& .MuiDrawer-paper': {
             width: drawerWidth,
-            boxSizing: "border-box",
-            ...(open ? {} : { display: "none" }),
+            backgroundColor: '#65CCD0',
           },
         }}
       >
         {myDrawer}
       </Drawer>
-
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          transition: "margin 200ms cubic-bezier(0.4, 0, 0.6, 1) 0ms",
-          marginLeft: open ? `${drawerWidth}px` : "0",
-          marginRight: open ? "0" : `${drawerWidth}px`, // Added marginRight
-        }}
-      >
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
         {content}
       </Box>
+      {open && <div onClick={toggleDrawer} style={{ position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, zIndex: 1200 }} />}
     </Box>
   );
 }
